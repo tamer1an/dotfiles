@@ -1,0 +1,65 @@
+# Easier navigation: .., ..., ~ and -
+alias cd..="cd .."
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+alias --="cd --"
+
+# mv, rm, cp
+alias mv='mv -v'
+alias rm='rm -i -v'
+alias cp='cp -v'
+
+alias chmox='chmod -x'
+
+alias where=which # sometimes i forget
+
+alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
+
+
+###
+# GIT STUFF
+
+alias push="git push"
+
+# Undo a `git push`
+alias undopush="git push -f origin HEAD^:master"
+
+alias master="git checkout master"
+
+# Networking. IP address, dig, DNS
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+# alias dig="dig +nocmd any +multiline +noall +answer"
+# wget with certificates. Let's keep it simple.
+# alias wget="curl -O"
+
+alias diskspace_report="df -P -kHl"
+
+# Shortcuts
+alias g="git"
+alias v="vim"
+alias ungz="gunzip -k"
+
+# File size
+alias fs="stat -f \"%z bytes\""
+
+# node-red
+alias red='node --inspect ~/.nvm/versions/node/v11.15.0/bin/node-red'
+alias redb='node --inspect-brk ~/.nvm/versions/node/v11.15.0/bin/node-red'
+
+# mount C: driver
+alias addC='sudo mount -t drvfs C: /mnt/c'
+
+# VS Code
+alias srv='~/code-server/code-server ~/prj --disable-telemetry'
+
+# ssh service
+#service ssh status
+#sudo service ssh --full-restart
+#sudo systemctl status ssh
+#sudo systemctl enable ssh
+alias sshstart='sudo service ssh' #start
+

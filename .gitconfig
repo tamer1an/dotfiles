@@ -1,0 +1,117 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+        name = Andrii
+        email = tamerjlah@gmail.com
+
+[alias]
+        alias = config --get-regexp ^alias\\. #display all aliases
+
+        c = commit -am #{@message} commit with message and adding files
+        cm = commit -m #{@message} commit with message
+        cp = cherry-pick
+
+        co = checkout
+        nbr = checkout -b #{@branchName} create new branch
+        brm = checkout master #short way to checkout branch master
+        brd = checkout develop #short way to checkout branch develop
+        brp = checkout - #switch to prev branch git checkout @{-1}
+
+        pm = pull origin master #short way to pull branch master
+        pd = pull origin develop #short way to pull branch develop
+
+        fpm = !sh -c 'git brm && git fetch && git pm' #short way to checkout fetch and pull branch master
+        fpd = !sh -c 'git brd && git fetch && git pd' #short way to checkout fetch and pull branch develop
+
+        task = "!f() { newName=${1-NEWTASK}; git fpd && git nbr JIRA-$newName; }; f" #{@ID} short way to checkout, fetch, pull from develop branch and create new branch with JIRA board id !!! REPLACE NEOC$
+        release = "!f() { newName=${1-NEWRELEASE}; git fpd && git nbr release/v$newName; }; f"  #{@version} short way to checkout, fetch, pull from develop branch and create new release branch
+
+        re = checkout . #reset modified files that was in repo before chages
+        rekeep = reset --keep
+        unstage = reset HEAD #reset from adding files to commit
+        undo = reset --hard #full reset and revert changes
+        undocommit = reset HEAD~
+
+        reword = commit -v --amend
+        amend = commit --amend --all
+
+        s = status
+        st = status --short --branch #short status info
+        info = branch -vv
+        infoMergedBranches = branch --merged #listAllMergedBranches
+
+        plog = log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph #pretty history log
+        pcode = log -S # add code in quotes ''
+        pfile = log -p # add filename
+        see = show --pretty='parent %Cred%p%Creset commit %Cred%h%Creset%C(yellow)%d%Creset%n%n%w(72,2,2)%s%n%n%w(72,0,0)%C(cyan)%an%Creset %Cgreen%ar%Creset' #changes in last commit
+        seelast = show -s --pretty='tformat:%h (%s, %ad)' --date=short #what was the last changes
+        seenew = !sh -c 'git log $1@{1}..$1@{0} "$@"' #show new commits
+        whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -" #who made last commit
+
+	      d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+        df = diff --color --color-words --abbrev
+        dfst = diff --stat -r #short difference statistic
+        dff = diff-tree --no-commit-id --name-only -r #listChangedFiles
+        dfFilesTillCommit = ls-tree --name-only -r
+        dfm = log --no-merges master.. # show commit log of unique commits of this branch (not on master)
+        dfmm = diff master... 	# show unified diff of unique commits of this branch https://stackoverflow.com/a/48681527
+        dfp = log --no-merges develop.. # show commit log of unique commits of this branch (not on master)
+        dfpp = diff develop... 	# show unified diff of unique commits of this branch https://stackoverflow.com/a/48681527
+
+# color
+[color]
+	      ui = auto
+[color "diff"]
+        meta = yellow bold
+        commit = green bold
+        frag = magenta bold
+        old = red bold
+        new = green bold
+        whitespace = red reverse
+        newMoved = cyan
+        oldMoved = blue
+[color "diff-highlight"]
+        oldNormal = red bold
+        oldHighlight = "red bold 52"
+        newNormal = "green bold"
+        newHighlight = "green bold 22"
+[color "branch"]
+        current = yellow reverse
+        local = yellow
+        remote = green
+[color "status"]
+        added = yellow
+        changed = green
+        untracked = cyan
+
+[help]
+        autocorrect = 1
+
+[push]
+        default = current
+        followTags = true
+
+[fetch]
+	      prune = true
+
+[diff]
+        # Show blocks of moved text of at least 20 alphanumeric characters differently than adds/deletes
+        # https://blog.github.com/2018-04-05-git-217-released/
+        colorMoved = zebra
+
+[stash]
+	      showPatch = true
+[log]
+        date = relative
+
+# remove branches that was merged
+#       rbrm = "!sh -c 'git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d' -"
+#       rbrd = !sh -c 'git branch --merged develop | grep -v '^\*' | xargs -n 1 git branch -d'
+
+#[pager]
+	# insanely beautiful diffs ==> npm install -g diff-so-fancy
+	#diff = diff-so-fancy | less --tabs=4 -RFX
+	#show = diff-so-fancy | less --tabs=4 -RFX
+
+#[init]
+#	templatedir = ~/.git_template
