@@ -7,10 +7,14 @@
 [alias]
         alias = config --get-regexp ^alias\\. #display all aliases
 
+        cs = clone --recursive #clone including submodules
+
         c = commit -am #{@message} commit with message and adding files
         cm = commit -m #{@message} commit with message
         cp = cherry-pick
 
+
+        go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f" # Switch to a branch, creating it if necessary
         co = checkout
         nbr = checkout -b #{@branchName} create new branch
         brm = checkout master #short way to checkout branch master
@@ -19,6 +23,8 @@
 
         pm = pull origin master #short way to pull branch master
         pd = pull origin develop #short way to pull branch develop
+        p = pull --recurse-submodules
+        reb = "!r() { git rebase -i HEAD~$1; }; r" # Interactive rebase with the given number of latest commits
 
         fpm = !sh -c 'git brm && git fetch && git pm' #short way to checkout fetch and pull branch master
         fpd = !sh -c 'git brd && git fetch && git pd' #short way to checkout fetch and pull branch develop
@@ -34,11 +40,21 @@
 
         reword = commit -v --amend
         amend = commit --amend --all
+        credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f" # Credit an author on the latest commit
 
         s = status
         st = status --short --branch #short status info
         info = branch -vv
         infoMergedBranches = branch --merged #listAllMergedBranches
+        tags = tag -l
+        branches = branch -a
+        remotes = remote -v
+        retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r" # Remove the old tag with this name and tag the latest commit with it.
+
+        findbr = "!f() { git branch -a --contains $1; }; f" # Find branches containing commit
+        findtag = "!f() { git describe --always --contains $1; }; f" # Find tags containing commit
+      	findcode = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f" # Find commits by source code
+        findcommitmsh = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"  # Find commits by commit message
 
         plog = log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph #pretty history log
         pcode = log -S # add code in quotes ''
@@ -47,8 +63,11 @@
         seelast = show -s --pretty='tformat:%h (%s, %ad)' --date=short #what was the last changes
         seenew = !sh -c 'git log $1@{1}..$1@{0} "$@"' #show new commits
         whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -" #who made last commit
+        whoami = config user.email
+        contributors = shortlog --summary --numbered
 
 	      d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+	      di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d" # with index
         df = diff --color --color-words --abbrev
         dfst = diff --stat -r #short difference statistic
         dff = diff-tree --no-commit-id --name-only -r #listChangedFiles
@@ -107,6 +126,7 @@
 # remove branches that was merged
 #       rbrm = "!sh -c 'git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d' -"
 #       rbrd = !sh -c 'git branch --merged develop | grep -v '^\*' | xargs -n 1 git branch -d'
+#       dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
 #[pager]
 	# insanely beautiful diffs ==> npm install -g diff-so-fancy
