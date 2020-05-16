@@ -6,7 +6,7 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
-alias --="cd --"
+alias _="cd --"
 
 # mv, rm, cp
 alias mv='mv -v'
@@ -15,7 +15,7 @@ alias cp='cp -v'
 
 alias chmox='chmod -x'
 
-alias where=which # sometimes i forget
+alias where='which' # sometimes i forget
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
@@ -63,3 +63,4 @@ alias srv='~/code-server/code-server ~/prj --disable-telemetry'
 #sudo systemctl enable ssh
 alias sshstart='sudo service ssh' #start
 
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
