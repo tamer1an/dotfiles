@@ -49,6 +49,24 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"App
 ### install of common things
 ###
 
+# <VS Code Server>
+curl -fsSL https://code-server.dev/install.sh | sh # -s -- --dry-run
+
+# <Cheat> https://github.com/cheat/cheat/releases
+# /home/<user>/.config/cheat/cheatsheets/[community, personal]'
+# /home/mate/.config/cheat/conf.yml
+cd /usr/local/bin \
+wget https://github.com/cheat/cheat/releases/download/4.0.1/cheat-linux-amd64.gz && gunzip cheat-linux-amd64.gz
+
+# <NVM> curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+nvm install 14
+
 # autocompletion for git branch names https://git-scm.com/book/en/v1/Git-Basics-Tips-and-Tricks
 curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
 
@@ -64,6 +82,8 @@ npm install -g diff-so-fancy
 # trash as the safe `rm` alternative
 #npm install --global trash-cli
 
+#<Node-RED>
+#sudo npm install -g --unsafe-perm node-red
 
 # faster git server communication.
 # like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html

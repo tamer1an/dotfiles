@@ -37,10 +37,6 @@ export HISTIGNORE="&:[ ]*:exit:ls:bg:fg:history:clear"
 # Save multi-line commands as one command
 shopt -s cmdhist
 
-export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Enable git branch name completion if file exists
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
