@@ -79,11 +79,16 @@ npm install -g git-recent
 # nice git diffs
 npm install -g diff-so-fancy
 
-# trash as the safe `rm` alternative
-#npm install --global trash-cli
-
 #<Node-RED>
 #sudo npm install -g --unsafe-perm node-red
+
+# <Docker>
+sudo apt install docker.io \
+sudo systemctl start docker \
+sudo systemctl enable docker
+
+# trash as the safe `rm` alternative
+#npm install --global trash-cli
 
 # faster git server communication.
 # like a LOT faster. https://opensource.googleblog.com/2018/05/introducing-git-protocol-version-2.html
@@ -93,3 +98,9 @@ npm install -g diff-so-fancy
 # git config user.email "xxxx@chromium.org"
 
 ./symlink-setup.sh
+
+# <Tmux>
+
+#win10 section
+choco install tor-browser
+choco install citrix-workspace --force
