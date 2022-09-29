@@ -52,6 +52,11 @@ cp -Rp ~/Library/Application\ Support/Code\ -\ Insider* ~/migration/Library/"App
 # <VS Code Server>
 curl -fsSL https://code-server.dev/install.sh | sh # -s -- --dry-run
 
+# To have systemd start code-server now and restart on boot:
+#   sudo systemctl enable --now code-server@$USER
+# Or, if you don't want/need a background service you can run:
+#   code-server
+
 # <Cheat> https://github.com/cheat/cheat/releases
 # /home/<user>/.config/cheat/cheatsheets/[community, personal]'
 # /home/mate/.config/cheat/conf.yml
