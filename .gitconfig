@@ -16,16 +16,16 @@
         go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f" # Switch to a branch, creating it if necessary
         co = checkout
         nbr = checkout -b #{@branchName} create new branch
-        brm = checkout master #short way to checkout branch master
-        brd = checkout develop #short way to checkout branch develop
+        brm = checkout main #short way to checkout branch main
+        brd = checkout trybynenko/develop #short way to checkout branch develop
         brp = checkout - #switch to prev branch git checkout @{-1}
 
-        pm = pull origin master #short way to pull branch master
-        pd = pull origin develop #short way to pull branch develop
+        pm = pull origin main #short way to pull branch main
+        pd = pull origin trybynenko/develop #short way to pull branch develop
         p = pull --recurse-submodules
         reb = "!r() { git rebase -i HEAD~$1; }; r" # Interactive rebase with the given number of latest commits
 
-        fpm = !sh -c 'git brm && git fetch && git pm' #short way to checkout fetch and pull branch master
+        fpm = !sh -c 'git brm && git fetch && git pm' #short way to checkout fetch and pull branch main
         fpd = !sh -c 'git brd && git fetch && git pd' #short way to checkout fetch and pull branch develop
 
         task = "!f() { newName=${1-NEWTASK}; git fpd && git nbr JIRA-$newName; }; f" #{@ID} short way to checkout, fetch, pull from develop branch and create new branch with JIRA board id !!! REPLACE NEOC$
@@ -52,7 +52,7 @@
 
         findbr = "!f() { git branch -a --contains $1; }; f" # Find branches containing commit
         findtag = "!f() { git describe --always --contains $1; }; f" # Find tags containing commit
-      	findcode = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f" # Find commits by source code
+	findcode = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f" # Find commits by source code
         findcommitmsh = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"  # Find commits by commit message
 
         plog = log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph #pretty history log
@@ -71,9 +71,9 @@
         dfst = diff --stat -r #short difference statistic
         dff = diff-tree --no-commit-id --name-only -r #listChangedFiles
         dfFilesTillCommit = ls-tree --name-only -r
-        dfm = log --no-merges master.. # show commit log of unique commits of this branch (not on master)
-        dfmm = diff master... 	# show unified diff of unique commits of this branch https://stackoverflow.com/a/48681527
-        dfp = log --no-merges develop.. # show commit log of unique commits of this branch (not on master)
+        dfm = log --no-merges main.. # show commit log of unique commits of this branch (not on main)
+        dfmm = diff main... 	# show unified diff of unique commits of this branch https://stackoverflow.com/a/48681527
+        dfp = log --no-merges develop.. # show commit log of unique commits of this branch (not on main)
         dfpp = diff develop... 	# show unified diff of unique commits of this branch https://stackoverflow.com/a/48681527
 
 # color
@@ -123,7 +123,7 @@
         date = relative
 
 # remove branches that was merged
-#       rbrm = "!sh -c 'git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d' -"
+#       rbrm = "!sh -c 'git branch --merged main | grep -v '^\*' | xargs -n 1 git branch -d' -"
 #       rbrd = !sh -c 'git branch --merged develop | grep -v '^\*' | xargs -n 1 git branch -d'
 #       dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
